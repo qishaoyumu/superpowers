@@ -28,7 +28,8 @@ You MUST create a task for each of these items and complete them in order:
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
 5. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and commit
-6. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+6. **Set up worktree** — invoke using-git-worktrees to create isolated implementation workspace
+7. **Transition to implementation** — invoke writing-plans skill to create implementation plan
 
 ## Process Flow
 
@@ -40,6 +41,7 @@ digraph brainstorming {
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
     "Write design doc" [shape=box];
+    "Set up worktree (using-git-worktrees)" [shape=box];
     "Invoke writing-plans skill" [shape=doublecircle];
 
     "Explore project context" -> "Ask clarifying questions";
@@ -48,11 +50,12 @@ digraph brainstorming {
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Invoke writing-plans skill";
+    "Write design doc" -> "Set up worktree (using-git-worktrees)";
+    "Set up worktree (using-git-worktrees)" -> "Invoke writing-plans skill";
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is invoking writing-plans.** Do NOT invoke any implementation skill directly. After design approval, invoke using-git-worktrees for workspace isolation, then invoke writing-plans.
 
 ## The Process
 
@@ -81,6 +84,10 @@ digraph brainstorming {
 - Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
+
+**Workspace isolation:**
+- Invoke the using-git-worktrees skill to create an isolated workspace for implementation
+- All subsequent implementation work happens in this worktree
 
 **Implementation:**
 - Invoke the writing-plans skill to create a detailed implementation plan
